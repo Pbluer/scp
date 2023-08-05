@@ -1,4 +1,5 @@
 <template>
+    <smartAlert :type="alert.type" :mensage="alert.mensage" v-show="alert.show"/>    
     <div class="flex justify-center items-center my-[30vh]">
 
         <form id="formLogin" @submit.prevent="logar()" class="flex flex-col justify-center items-center w-[20rem] border border-gray-700 shadow rounded-lg ">
@@ -21,37 +22,75 @@
 </template>
 <script>
 import axios from "axios"
+import smartAlert from "../../components/smartAlert.vue"
 
 export default {
     name:'loginIndex',
     data() {
         return {
             login: null,
-            password: null
+            password: null,
+            alert:{
+                type:'',
+                mensage: '',
+                show: false
+            }
         }
+    },
+    watch:{
+        'alert.show'(oldType,newType){
+            if( oldType == true){
+                setTimeout(() => this.alert.show = false , 1500);
+            }
+
+            if( newType == true){
+                setTimeout(() => this.alert.show = false , 1500);
+            }
+            
+        }
+    },
+    components:{
+        smartAlert
     },
     methods:{
         async logar(){
             
-            let form = new FormData();
+            let formData = new FormData();
             
-            form.append('login',this.login )
-            form.append('pasword',this.pasword )
+            formData.append('login',this.login )
+            formData.append('senha',this.password )
 
             try{
 
                 let result = await axios({
-                    data: form,
-                    methods:'post',
-                    url:'http://localhost:3030/login',
-                    headers: { "Content-Type":'multipart/form-data'},
+                    method: 'post',
+                    url: 'http://localhost:3030/login',
+                    headers: { "Content-Type":'application/json; charset=utf-8'},
+                    data: formData
                 })
 
-                console.log(result.data)
+                let { status, mensage } = result.data;
+         
+                if( status == 200 ){
+                    this.alert.type = 'success'
+                    this.alert.mensage = mensage
+                    this.alert.show = true                    
+                    return
+                }
+
+                if( status > 400 ){
+                    this.alert.type = 'error'
+                    this.alert.mensage = mensage
+                    this.alert.show = true                   
+                    return
+                }
                 
             }catch( err ){
                 console.log(err)
             }
+        },
+        async formValidacao(){
+            
         }
     }    
 }
