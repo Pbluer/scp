@@ -1,13 +1,14 @@
 <template>
-    <div>
-        <button class="bg-slate-800" >OLA</button>
-    </div>
+    <menuLateral />
 </template>
 <script>
+import menuLateral from "@/components/Base/menuLateral.vue";
+
 export default {
-    
+    components:{
+        menuLateral
+    }
 }
 </script>
-<style lang="">
+
     
-</style>

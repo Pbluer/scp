@@ -5,9 +5,45 @@ import Login from '../views/Login/loginIndex.vue'
 const routes = [
   {
     path: '/',
-    name: 'login',
-    component: Login,
+    name: 'default',
+    redirect: { name: 'login' }
   },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,   
+  },
+  {    
+    path: '/cadastro',
+    name:'loginCadastro',
+    component: () => import('@/views/Cadastro/cadastroIndex.vue') 
+  },
+  {
+    path:'/inicio',
+    name: 'inicio',
+    component: () => import('@/views/Home/homeIndex.vue')
+  },
+  {
+    path:'/nivel',
+    name:'nivel',
+    children: [
+      {
+        path: '/basico',
+        name: 'nivelBasico',
+        component: () => import('@/views/Nivel/nivelBasico.vue')
+      },
+      {
+        path: '/medio',
+        name: 'nivelMedio',
+        component: () => import('@/views/Nivel/nivelMedio.vue')
+      },
+      {
+        path: '/avancado',
+        name: 'nivelAvancado',
+        component: () => import('@/views/Nivel/nivelAvancado.vue')
+      },
+    ]
+  }
 /*   {
     path: '/about',
     name: 'about',

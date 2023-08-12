@@ -3,18 +3,9 @@
     <div class="flex justify-center items-center my-[30vh]">
 
         <form id="formLogin" @submit.prevent="logar()" class="flex flex-col justify-center items-center w-[20rem] border border-gray-700 shadow rounded-lg ">
-        
-            <section class="flex flex-col mt-5 text-left">
-                <label for="login" class="mb-1" >Login</label>
-                <input class="border-2 border-gray-800 rounded px-2 outline-none h-8" type="text" v-model="login" >
-            </section>
 
-            <section class="flex flex-col m-5 text-left">
-                <label for="senha" class="mb-1" >Senha</label>
-                <input class="border-2 border-gray-800 rounded px-2 outline-none h-8"  type="password" v-model="password" >
-            </section>
-            
-            <button class="rounded-sm0 w-[8rem] bg-slate-400 mb-5 mt-3 hover:bg-slate-600" type="submit"> LOGAR </button>
+            <h1>cadastro</h1>
+
         </form>
 
     </div>
@@ -35,10 +26,7 @@ export default {
                 show: false
             }
         }
-    },
-    watch:{
-        'alert.show'(){ setTimeout( () => this.alert.show = false , 1600) }        
-    },
+    },   
     components:{
         smartAlert
     },
@@ -76,11 +64,7 @@ export default {
                 }
                 
             }catch( err ){
-                this.alert.type = 'error'
-                this.alert.mensage = 'Entre em contato com o suporte.'
-                this.alert.show = true                   
                 console.log(err)
-                return
             }
         },
         async formValidacao(){
