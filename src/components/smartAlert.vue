@@ -1,5 +1,6 @@
 <template >
-   <div class="mx-auto w-[25rem] rounded-xl p-2 text-white my-5 text-center shadow-lg" :class="tipoAlerta">
+   <div class="absolute top-0 right-3 w-[25rem] rounded-xl p-2 text-white my-5 text-left shadow-lg
+    md:right-5" :class="tipoAlerta">
         <h3 class="font-bold"> {{ titulo }} </h3>
         {{ mensage || '' }}
     </div>
@@ -11,15 +12,15 @@ export default {
         tipoAlerta(){
 
             if( this.type == 'error' ){
-                return 'bg-red-600'
+                return 'bg-red-600 animate__animated animate__bounceInRight'
             }
 
             if( this.type == 'warning' ){
-                return 'bg-orange-600'
+                return 'bg-orange-600 animate__animated animate__bounceInRight'
             }
 
             if( this.type == 'success' ){
-                return 'bg-green-600'
+                return 'bg-green-600 animate__animated animate__bounceInRight'
             }
 
             return 'bg-red-600'

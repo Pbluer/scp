@@ -6,15 +6,15 @@
         
             <section class="flex flex-col mt-5 text-left">
                 <label for="login" class="mb-1" >Login</label>
-                <input class="border-2 border-gray-800 rounded px-2 outline-none h-8" type="text" v-model="login" >
+                <input ref="login" class="border-2 border-gray-800 rounded px-2 outline-none h-8" type="text" v-model.trim="login" >
             </section>
 
             <section class="flex flex-col m-5 text-left">
                 <label for="senha" class="mb-1" >Senha</label>
-                <input class="border-2 border-gray-800 rounded px-2 outline-none h-8"  type="password" v-model="password" >
+                <input ref="password" class="border-2 border-gray-800 rounded px-2 outline-none h-8"  type="password" v-model.trim="password" >
             </section>
             
-            <button class="rounded-sm0 w-[8rem] bg-slate-400 mb-5 mt-3 hover:bg-slate-600" type="submit"> LOGAR </button>
+            <button class="rounded-md w-[8rem] dark:bg-gray-800 dark:text-gray-300 mb-5 mt-3 hover:bg-slate-600" type="submit"> LOGAR </button>
         </form>
 
     </div>
@@ -45,8 +45,9 @@ export default {
     methods:{
         async logar(){
             
-            let formData = new FormData();
-            
+            if( !(await this.formValidacao()) ) return;
+
+            let formData = new FormData();            
             formData.append('login',this.login )
             formData.append('senha',this.password )
 
@@ -64,7 +65,8 @@ export default {
                 if( status == 200 ){
                     this.alert.type = 'success'
                     this.alert.mensage = mensage
-                    this.alert.show = true                    
+                    this.alert.show = true      
+                    setTimeout( () => this.$router.push({name: 'inicio'})  , 1500)                                 
                     return
                 }
 
@@ -84,7 +86,26 @@ export default {
             }
         },
         async formValidacao(){
+            let login = this.login;
+            let password = this.password;
+
+            if( !login ){
+                this.alert.type = 'warning'
+                this.alert.mensage = 'Login não informado.'
+                this.alert.show = true    
+                this.$refs.login.focus()  
+                return false               
+            }
+
+            if( !password ){
+                this.alert.type = 'warning'
+                this.alert.mensage = 'Senha não informada.'
+                this.alert.show = true     
+                this.$refs.login.focus()  
+                return false                   
+            }
             
+            return true
         }
     }    
 }
