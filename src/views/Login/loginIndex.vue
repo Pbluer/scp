@@ -20,8 +20,8 @@
     </div>
 </template>
 <script>
+import smartAlert from "@/components/Base/smartAlert.vue"
 import axios from "axios"
-import smartAlert from "../../components/smartAlert.vue"
 
 export default {
     name:'loginIndex',

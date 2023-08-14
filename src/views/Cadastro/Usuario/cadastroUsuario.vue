@@ -1,18 +1,18 @@
 <template>
     <smartAlert :type="alert.type" :mensage="alert.mensage" v-show="alert.show"/>    
+    <menuLateral />
+
     <div class="flex justify-center items-center my-[30vh]">
 
-        <form id="formLogin" @submit.prevent="logar()" class="flex flex-col justify-center items-center w-[20rem] border border-gray-700 shadow rounded-lg ">
-
-            <h1>cadastro</h1>
-
-        </form>
+        <basedTable />
 
     </div>
 </template>
 <script>
+import menuLateral from "@/components/Base/menuLateral.vue"
+import smartAlert from "@/components/Base/smartAlert.vue"
+import basedTable from "@/components/Base/basedTable.vue"
 import axios from "axios"
-import smartAlert from "@/components/smartAlert.vue"
 
 export default {
     name:'loginIndex',
@@ -28,7 +28,9 @@ export default {
         }
     },   
     components:{
-        smartAlert
+        menuLateral,
+        smartAlert,
+        basedTable,
     },
     methods:{
         async logar(){
