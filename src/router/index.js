@@ -13,35 +13,20 @@ const routes = [
     name: 'login',
     component: Login,   
   },
-  {    
-    path: '/cadastro',
-    name:'loginCadastro',
-    component: () => import('@/views/Cadastro/cadastroIndex.vue') 
-  },
   {
     path:'/inicio',
     name: 'inicio',
     component: () => import('@/views/Home/homeIndex.vue')
   },
   {
-    path:'/nivel',
-    name:'nivel',
+    path:'/cadastro',
+    name:'cadastro',
     children: [
       {
-        path: '/basico',
-        name: 'nivelBasico',
-        component: () => import('@/views/Nivel/nivelBasico.vue')
-      },
-      {
-        path: '/medio',
-        name: 'nivelMedio',
-        component: () => import('@/views/Nivel/nivelMedio.vue')
-      },
-      {
-        path: '/avancado',
-        name: 'nivelAvancado',
-        component: () => import('@/views/Nivel/nivelAvancado.vue')
-      },
+        path: '/usuario',
+        name: 'cadastroUsuario',
+        component: () => import('@/views/Cadastro/Usuario/cadastroUsuario.vue')
+      },               
     ]
   }
 /*   {

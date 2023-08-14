@@ -12,7 +12,7 @@
 </template>
 <script>
 import axios from "axios"
-import smartAlert from "../../components/smartAlert.vue"
+import smartAlert from "@/components/smartAlert.vue"
 
 export default {
     name:'loginIndex',
