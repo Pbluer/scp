@@ -8,15 +8,11 @@
         </tr>
       </thead>
         <tbody>
-            <tr v-for="propsData,index in bodyData" :key="propsData.index" class="w-auto border border-gray-50">
+            <tr v-for="propsData in bodyData" :key="propsData.index" class="w-auto border border-gray-50">
                 <div>
-                   <td>{{ propsData[index].id }}</td>                                              
-                   <td>{{ propsData[index].nome }}</td>                                              
-                   <td>{{ propsData[index].dataNascimento }}</td>                                              
+                   <td v-for="row in process" :key="row.id">{{ row }} </td>                                                                                                          
                 </div>
-                <div>
-                    <td>{{ propsData[index].nome }}</td>
-                </div>
+             
             </tr>
         </tbody>
       <tbody>          
