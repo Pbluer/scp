@@ -1,18 +1,16 @@
 <template>
-    <table class="table text-gray-800 bg-gray-50 dark:text-gray-50 dark:bg-gray-800 text-center">
-      <thead >
+    <table class="table text-gray-50 bg-[#0284C7] dark:text-gray-50 dark:bg-gray-800 text-center rounded-lg mx-2">
+      <thead>
         <tr class="border border-gray-50">
-          <th class="w-[10rem] border border-gray-50"> Nome </th>   
-          <th class="w-[10rem] border border-gray-50"> CPF </th>   
-          <th class="w-[10rem] border border-gray-50"> Data de Nascimento </th>             
+          <th  v-for="heade in headers" :key="heade" class="w-[10rem] border border-gray-50"> {{heade}} </th>            
         </tr>
       </thead>
         <tbody>
-            <tr v-for="propsData in bodyData" :key="propsData.index" class="w-auto border border-gray-50">
-                <div>
-                   <td v-for="row in process" :key="row.id">{{ row }} </td>                                                                                                          
-                </div>
-             
+            <tr v-for="row,index in body" :key="index" @click.prevent="pathRow( path,row.codigo)" class="w-auto border border-gray-50 hover:bg-slate-600">      
+                <td class="border border-gray-50"> {{ row.nome }}</td>           
+                <td class="border border-gray-50"> {{ row.cpf }}</td>           
+                <td class="border border-gray-50"> {{ row.dataNascimento }}</td>           
+
             </tr>
         </tbody>
       <tbody>          
@@ -21,24 +19,20 @@
     </table>
 </template>
 <script>
-export default {    
+export default {
+    props:{
+        headers: Array,
+        body: Array,
+        path: String
+    },
     data(){
         return{           
-            bodyData:[
-                [
-                    {
-                        'id':'1',
-                        'nome':'Bruno Marcelo Mendes',
-                        'cpf':'594.800.564-02',
-                        'dataNascimento':'15/01/1954'
-                    }
-                ]               
-            ]
+                    
         }
     },
     methods: {
-        teste(value){
-            console.log(value)
+        pathRow(pathName,codigoRow){
+            this.$router.push({ name: pathName, params:{ codigo: codigoRow } })
         }
     }
     

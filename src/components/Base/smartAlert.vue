@@ -12,15 +12,15 @@ export default {
         tipoAlerta(){
 
             if( this.type == 'error' ){
-                return 'bg-red-600 animate__animated animate__bounceInRight'
+                return 'bg-red-600 animate__animated animate__bounce'
             }
 
             if( this.type == 'warning' ){
-                return 'bg-orange-600 animate__animated animate__bounceInRight'
+                return 'bg-orange-600 animate__animated animate__bounce'
             }
 
             if( this.type == 'success' ){
-                return 'bg-green-600 animate__animated animate__bounceInRight'
+                return 'bg-green-600 animate__animated animate__bounce'
             }
 
             return 'bg-red-600'

@@ -1,8 +1,8 @@
 <template>
     <smartAlert :type="alert.type" :mensage="alert.mensage" v-show="alert.show"/>    
-    <div class="flex justify-center items-center my-[30vh]">
+    <div class="flex justify-center items-center">
 
-        <form id="formLogin" @submit.prevent="logar()" class="flex flex-col justify-center items-center w-[20rem] border border-gray-700 shadow rounded-lg ">
+        <form id="formLogin" @submit.prevent="logar()" class="flex flex-col justify-center my-[30vh] items-center w-[20rem] border border-gray-700 shadow rounded-lg dark:bg-gray-50">
         
             <section class="flex flex-col mt-5 text-left">
                 <label for="login" class="mb-1" >Login</label>
@@ -14,7 +14,7 @@
                 <input ref="password" class="border-2 border-gray-800 rounded px-2 outline-none h-8"  type="password" v-model.trim="password" >
             </section>
             
-            <button class="rounded-md w-[8rem] dark:bg-gray-800 dark:text-gray-300 mb-5 mt-3 hover:bg-slate-600" type="submit"> LOGAR </button>
+            <button class="rounded-md w-[8rem] dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600 dark:text-gray-300 mb-5 mt-3 hover:bg-[#404040] font-bold" type="submit"> LOGAR </button>
         </form>
 
     </div>
@@ -67,14 +67,14 @@ export default {
                     this.alert.mensage = mensage
                     this.alert.show = true      
                     setTimeout( () => this.$router.push({name: 'inicio'})  , 1500)                                 
-                    return
+                    return;
                 }
 
                 if( status > 400 ){
                     this.alert.type = 'error'
                     this.alert.mensage = mensage
                     this.alert.show = true                   
-                    return
+                    return;
                 }
                 
             }catch( err ){
@@ -82,7 +82,7 @@ export default {
                 this.alert.mensage = 'Entre em contato com o suporte.'
                 this.alert.show = true                   
                 console.log(err)
-                return
+                return;
             }
         },
         async formValidacao(){
