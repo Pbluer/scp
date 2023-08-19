@@ -1,6 +1,9 @@
 <template>
     <menuLateral />
-    <div class="flex justify-center items-center my-[30vh]">
+    <div class="flex flex-col justify-center items-center my-[30vh]">
+        <div class="my-5">
+            <h1 class="text-[1.5rem] font-bold text-gray-800 dark:text-gray-50">Lista de Usuário</h1>
+        </div>
         <basedTable :headers="tableHeaders" :body="tableBody" :path="tablePath"/>
     </div>
 </template>
