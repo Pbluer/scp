@@ -1,9 +1,50 @@
 <template>
     <menuLateral />
-    <div class="flex flex-col justify-center items-center my-[30vh]">
+    <div class="flex flex-col justify-center items-center m-auto">
         <div class="my-5">
             <h1 class="text-[1.5rem] font-bold text-gray-800 dark:text-gray-50">Lista de Usuário</h1>
         </div>
+
+        <form id="formLogin" @submit.prevent="logar()" class="w-[90vw] flex flex-col justify-center items-center bg-[#0284C7] shadow rounded-lg dark:bg-gray-800 mb-5 py-5
+            lg:w-[80vw]
+            xl:w-[60vw]">
+
+            <div class="flex flex-col gap-y-2 w-auto mb-5">
+
+                <div class="flex flex-col 
+                    sm:grid sm:grid-cols-2 sm:gap-x-4
+                    lg:grid-cols-4">
+                    <section class="flex flex-col text-left">
+                        <label for="nome" class="mb-1 font-bold text-gray-50">Nome</label>
+                        <input class="rounded px-2 outline-none h-8" type="text">
+                    </section>
+        
+                    <section class="flex flex-col text-left">
+                        <label for="cpf" class="mb-1 font-bold text-gray-50" >CPF</label>
+                        <input class="rounded px-2 outline-none h-8"  type="text" >
+                    </section>   
+
+                    <section class="flex flex-col text-left">
+                        <label for="cpf" class="mb-1 font-bold text-gray-50" >Data Inico</label>
+                        <input class="rounded px-2 outline-none h-8"  type="date" >
+                    </section>
+
+                    <section class="flex flex-col text-left">
+                        <label for="cpf" class="mb-1 font-bold text-gray-50" >Data Fim</label>
+                        <input class="rounded px-2 outline-none h-8"  type="date" >
+                    </section>
+                </div>
+
+            </div>
+
+
+            <div class="relatiive">
+                <button class="border-2 border-gray-50 ml-auto font-bold bg-gray-50 rounded p-2 hover:bg-[#0284C7] hover:text-gray-50 dark:hover:bg-transparent" type="submit" title="Buscar"> 
+                    <i class="fa-solid fa-filter"></i> 
+                    Buscar
+                </button>
+            </div>
+        </form>
         <basedTable :headers="tableHeaders" :body="tableBody" :path="tablePath"/>
     </div>
 </template>
