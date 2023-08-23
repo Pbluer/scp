@@ -16,27 +16,26 @@
                     lg:grid-cols-4">
                     <section class="flex flex-col text-left">
                         <label for="nome" class="mb-1 font-bold text-gray-50">Nome</label>
-                        <input class="rounded px-2 outline-none h-8" type="text">
+                        <input class="rounded px-2 outline-none h-8" type="text" v-model.trim="form.nome">
                     </section>
         
                     <section class="flex flex-col text-left">
-                        <label for="cpf" class="mb-1 font-bold text-gray-50" >CPF</label>
-                        <input class="rounded px-2 outline-none h-8"  type="text" >
+                        <label for="cpf" class="mb-1 font-bold text-gray-50"> CPF</label>
+                        <input class="rounded px-2 outline-none h-8" type="text" v-model="form.cpf" v-mask="'000.000.000-00'">
                     </section>   
 
-                    <section class="flex flex-col text-left">
+                    <section class="flex flex-col text-left">   
                         <label for="cpf" class="mb-1 font-bold text-gray-50" >Data Inico</label>
-                        <input class="rounded px-2 outline-none h-8"  type="date" >
+                        <input class="rounded px-2 outline-none h-8" type="date" v-model="form.dataInicio">
                     </section>
 
                     <section class="flex flex-col text-left">
                         <label for="cpf" class="mb-1 font-bold text-gray-50" >Data Fim</label>
-                        <input class="rounded px-2 outline-none h-8"  type="date" >
+                        <input class="rounded px-2 outline-none h-8" type="date" v-model="form.dataFim">
                     </section>
                 </div>
 
             </div>
-
 
             <div class="relatiive">
                 <button class="border-2 border-gray-50 ml-auto font-bold bg-gray-50 rounded p-2 hover:bg-[#0284C7] hover:text-gray-50 dark:hover:bg-transparent" type="submit" title="Buscar"> 
@@ -62,7 +61,13 @@ export default {
         return {
             tablePath:'cadastroUsuario',
             tableHeaders:['Nome','CPF','Data de Nascimento'],
-            tableBody: []
+            tableBody: [],
+            form:{
+                nome: null,
+                cpf: null,
+                dataInicio: null,
+                dataFim: null
+            }
         }
     },   
     components:{
@@ -73,8 +78,10 @@ export default {
         async listagemUsuarios(){
             let formData = new FormData();
             
-            formData.append('login',this.login )
-            formData.append('senha',this.password )
+            formData.append('nome',this.form.nome )
+            formData.append('cpf',this.form.cpf )
+            formData.append('dataInicio',this.form.dataInicio )
+            formData.append('dataFim',this.form.dataFim )         
 
             try{
 
