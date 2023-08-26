@@ -5,7 +5,7 @@
             <h1 class="text-[1.5rem] font-bold text-gray-800 dark:text-gray-50">Lista de Usuário</h1>
         </div>
 
-        <form id="formLogin" @submit.prevent="logar()" class="w-[90vw] flex flex-col justify-center items-center bg-[#0284C7] shadow rounded-lg dark:bg-gray-800 mb-5 py-5
+        <form id="formLogin" @submit.prevent="listagemUsuarios()" class="w-[90vw] flex flex-col justify-center items-center bg-[#0284C7] shadow rounded-lg dark:bg-gray-800 mb-5 py-5
             lg:w-[80vw]
             xl:w-[60vw]">
 
@@ -37,10 +37,16 @@
 
             </div>
 
-            <div class="relatiive">
-                <button class="border-2 border-gray-50 ml-auto font-bold bg-gray-50 rounded p-2 hover:bg-[#0284C7] hover:text-gray-50 dark:hover:bg-transparent" type="submit" title="Buscar"> 
+            <div class="flex justify-evenly w-[80vw]">
+
+                <button class="w-[130px] border-2 border-gray-50 font-bold bg-gray-50 rounded p-2 hover:bg-[#0284C7] hover:text-gray-50 dark:hover:bg-transparent" type="submit" title="Buscar"> 
                     <i class="fa-solid fa-filter"></i> 
                     Buscar
+                </button>
+
+                <button @click="novo()" class="w-[130px] border-2 border-gray-50 font-bold bg-gray-50 rounded p-2 hover:bg-[#0284C7] hover:text-gray-50 dark:hover:bg-transparent" type="submit" title="Buscar">                    
+                    <i class="fa-solid fa-user"></i> 
+                    Novo
                 </button>
             </div>
         </form>
@@ -53,14 +59,14 @@ import basedTable from "@/components/Base/basedTable.vue"
 import axios from "axios"
 
 export default {
-    name:'loginIndex',
+    name:'cadastroUsuarioFiltro',
     beforeMount(){
         this.listagemUsuarios()
     },
     data() {
         return {
             tablePath:'cadastroUsuario',
-            tableHeaders:['Nome','CPF','Data de Nascimento'],
+            tableHeaders:['Codigo','Login','Ultimo Acesso'],
             tableBody: [],
             form:{
                 nome: null,
@@ -100,6 +106,9 @@ export default {
             }catch( err ){
                 console.log(err)
             }
+        },
+        novo(){
+            return this.$router.push({ name:'cadastroUsuario', params:{ codigo:'' } })
         }
     }
 }

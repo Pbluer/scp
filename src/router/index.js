@@ -28,7 +28,7 @@ const routes = [
         component: () => import('@/views/Cadastro/Usuario/cadastroUsuarioFiltro.vue')
       },               
       {
-        path: '/usuario/:codigo',
+        path: '/usuario/:codigo?',
         name: 'cadastroUsuario',
         component: () => import('@/views/Cadastro/Usuario/cadastroUsuario.vue')
       },               
