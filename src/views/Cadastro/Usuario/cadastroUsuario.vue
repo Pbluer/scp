@@ -1,9 +1,9 @@
 <template>
-    <smartAlert :type="alert.type" :mensage="alert.mensage" v-show="alert.show"/>    
+    <smartAlert :type="alert.type" :mensage="alert.mensage" v-show="alert.show" @click=" alert.show = false"/>    
     <menuLateral />
 
     <div class="flex justify-center items-center my-[5vh]">
-        <form class="bg-[#0284C7] px-5 flex flex-col items-center dark:bg-gray-800 w-96 rounded-md">         
+        <form @submit.prevent="gravar()" class="bg-[#0284C7] px-5 flex flex-col items-center dark:bg-gray-800 w-96 rounded-md">         
                 
             <div class="gap-2">
 
@@ -19,7 +19,7 @@
 
                 <section class="flex flex-col mt-5 text-left w-[20rem]">
                     <label for="confirarSenha" class="mb-1 font-bold text-[1.3rem] text-white" >Confirmar Senha </label>
-                    <input ref="confirarSenha" id="confirarSenha" class="border-2 border-gray-50 bg-gray-50 rounded focus:border-[#0C4A6E] px-2 h-[35px] outline-none" type="text" v-model.trim="form.confirarSenha" >
+                    <input ref="confirarSenha" id="confirarSenha" class="border-2 border-gray-50 bg-gray-50 rounded focus:border-[#0C4A6E] px-2 h-[35px] outline-none" type="text" v-model.trim="form.confirmacaoSenha" >
                 </section>
 
                 <section class="flex flex-col mt-5 text-left w-[20rem]">
@@ -44,14 +44,17 @@ import axios from "axios"
 export default {
     name:'cadastroUsuario',
     beforeMount(){
-       this.carregaFuncionarios()
+       this.autoLoadFuncionarioSelect()
+    },
+    watch:{
+        'alert.show'(){ setTimeout( () => this.alert.show = false , 1800) }        
     },
     data() {
         return {
             form:{
                 login: null,
                 senha: null,
-                confirarSenha: null,
+                confirmacaoSenha: null,
                 funcionario: null
             },
             selectFuncionario:[],
@@ -67,18 +70,19 @@ export default {
         smartAlert,
     },
     methods:{
-        async logar(){
-            
+        async gravar(){
+            if( await this.validarFormulario() ) return;
+
             let formData = new FormData();
             
             formData.append('login',this.login )
-            formData.append('senha',this.password )
+            formData.append('senha',this.senha )
 
             try{
 
                 let result = await axios({
                     method: 'post',
-                    url: 'http://localhost:3030/login',
+                    url: 'http://localhost:3030/login/cadastro',
                     headers: { "Content-Type":'application/json; charset=utf-8'},
                     data: formData
                 })
@@ -92,7 +96,7 @@ export default {
                     return
                 }
 
-                if( status > 400 ){
+                if( status >= 400 ){
                     this.alert.type = 'error'
                     this.alert.mensage = mensage
                     this.alert.show = true                   
@@ -103,7 +107,39 @@ export default {
                 console.log(err)
             }
         },
-        async carregaFuncionarios(){
+        async validarFormulario(){
+            let login = this.form.login 
+            let senha = this.form.senha 
+            let confirmacaoSenha = this.form.confirmacaoSenha
+
+            if( !login ){
+                this.alert.show = true
+                this.alert.type = 'warning'
+                this.alert.mensage = 'Insira o login.'
+                this.$refs.login.focus()
+                return true
+            }            
+
+            if( !senha ){
+                this.alert.show = true
+                this.alert.type = 'warning'
+                this.alert.mensage = 'Insira a senha.'
+                this.$refs.senha.focus()
+                return true
+            }
+
+            if( senha != confirmacaoSenha ){
+                this.alert.show = true
+                this.alert.type = 'warning'
+                this.alert.mensage = 'As senhas precisam ser iguais.'
+                this.$refs.senha.focus()
+                return true
+            }
+
+            return false
+
+        },
+        async autoLoadFuncionarioSelect(){
             let formData = new FormData();
             try{
 

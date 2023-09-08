@@ -1,5 +1,5 @@
 <template >
-   <div class="absolute top-0 right-3 w-[25rem] rounded-xl p-2 text-white my-5 text-left shadow-lg
+   <div class="absolute top-0 right-3 min-w-[250px] w-auto rounded-xl p-2 text-white my-5 text-left shadow-lg
     md:right-5" :class="tipoAlerta">
         <h3 class="font-bold"> {{ titulo }} </h3>
         {{ mensage || '' }}

@@ -9,7 +9,7 @@
             lg:w-[80vw]
             xl:w-[60vw]">
 
-            <div class="flex flex-col gap-y-2 w-auto mb-5">
+            <div class="flex flex-col gap-y-2 w-auto mb-5 px-5">
 
                 <div class="flex flex-col 
                     sm:grid sm:grid-cols-2 sm:gap-x-4
@@ -39,12 +39,12 @@
 
             <div class="flex justify-evenly w-[80vw]">
 
-                <button class="w-[130px] border-2 border-gray-50 font-bold bg-gray-50 rounded p-2 hover:bg-[#0284C7] hover:text-gray-50 dark:hover:bg-transparent" type="submit" title="Buscar"> 
+                <button class="w-[115px] border-2 border-gray-50 font-bold bg-gray-50 rounded p-2 hover:bg-[#0284C7] hover:text-gray-50 dark:hover:bg-transparent" type="submit" title="Buscar"> 
                     <i class="fa-solid fa-filter"></i> 
                     Buscar
                 </button>
 
-                <button @click="novo()" class="w-[130px] border-2 border-gray-50 font-bold bg-gray-50 rounded p-2 hover:bg-[#0284C7] hover:text-gray-50 dark:hover:bg-transparent" type="submit" title="Buscar">                    
+                <button @click="novo()" class="w-[115px] border-2 border-gray-50 font-bold bg-gray-50 rounded p-2 hover:bg-[#0284C7] hover:text-gray-50 dark:hover:bg-transparent" type="submit" title="Buscar">                    
                     <i class="fa-solid fa-user"></i> 
                     Novo
                 </button>
