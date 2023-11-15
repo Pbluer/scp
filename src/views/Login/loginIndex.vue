@@ -2,26 +2,38 @@
     <smartAlert :type="alert.type" :mensage="alert.mensage" v-show="alert.show"/>    
     <div class="flex justify-center items-center">
 
-        <form id="formLogin" @submit.prevent="logar()" class="flex flex-col justify-center my-[30vh] items-center w-[90vw] border border-gray-700 shadow rounded-lg dark:bg-gray-50
-            md:w-[80vw] lg:w-[70vw] xl:w-[40vw]">
+        <form class="flex flex-col gap-y-5 py-4 justify-center my-[33vh] items-center w-[90vw] border border-gray-700 shadow rounded-lg dark:bg-gray-50
+            md:w-[350px] ">
         
-            <section class="flex flex-col mt-5 text-left">
+            <div class="flex flex-col text-left">
                 <label for="login" class="mb-1 font-bold text-[1.5rem]" >Login</label>
-                <input ref="login" id="login" class="border-2 border-gray-800 rounded px-2 w-[80vw] h-[35px] outline-none md:w-[70vw] lg:w-[60vw] xl:w-[35vw]" type="text" v-model.trim="login" >
-            </section>
+                <input ref="login" id="login" class="border-2 border-gray-800 rounded px-2 h-[2rem] outline-none" type="text" v-model.trim="login" >
+            </div>
 
-            <section class="flex flex-col m-5 text-left">
+            <div class="flex flex-col text-left">
                 <label for="senha" class="mb-1 font-bold text-[1.5rem]" >Senha</label>
-                <input ref="password" id="senha" class="border-2 border-gray-800 rounded px-2 w-[80vw] h-[35px] outline-none md:w-[70vw] lg:w-[60vw] xl:w-[35vw]"  type="password" v-model.trim="password" >
-            </section>
+                <input ref="password" id="senha" class="border-2 border-gray-800 rounded px-2 h-[2rem] outline-none"  type="password" v-model.trim="password" >
+            </div>
             
-            <button class="rounded-md w-[8rem] dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600 dark:text-gray-300 mb-5 mt-3 hover:bg-[#404040] font-bold h-10" type="submit"> LOGAR </button>
+            <button @click.prevent="logar()" class="rounded-md w-[8rem] text-white bg-blue-600 font-bold h-10"> LOGAR </button>
+            
+            <button @click.prevent="showModal = true" class="underline text-blue-600">Registre-se</button>
+
+            <basedModal @close="showModal = false" v-if="showModal">
+                <template v-slot:body>
+                    <div class="flex flex-col items-center w-[3rem] mx-auto gap-y-2">
+                        <button @click.prevent="corpotareRegister()" class="bg-blue-600 w-[150px] rounded-sm text-[1.3rem] px-2 font-white text-white"> Corporativo </button>
+                        <button class="bg-blue-600 w-[150px] rounded-sm text-[1.3rem] px-2 font-white text-white"> Pessoal </button>      
+                    </div>
+                </template>
+            </basedModal>
         </form>
 
     </div>
 </template>
 <script>
 import smartAlert from "@/components/Base/smartAlert.vue"
+import basedModal from "@/components/Base/basedModal.vue"
 import axios from "axios"
 
 export default {
@@ -30,6 +42,7 @@ export default {
         return {
             login: null,
             password: null,
+            showModal: false,
             alert:{
                 type:'',
                 mensage: '',
@@ -41,7 +54,8 @@ export default {
         'alert.show'(){ setTimeout( () => this.alert.show = false , 1800) }        
     },
     components:{
-        smartAlert
+        smartAlert,
+        basedModal
     },
     methods:{
         async logar(){
@@ -106,6 +120,9 @@ export default {
             }
             
             return true
+        },
+        corpotareRegister(){
+            this.$router.push({ name: "corporateRegister" })
         }
     }    
 }

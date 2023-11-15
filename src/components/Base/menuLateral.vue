@@ -1,90 +1,92 @@
 <template>
 
-<button @click="openMenuMobile()" type="button" class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-[#0284C7] rounded-lg hover:bg-[#0C4A6E] focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-   <span class="sr-only"></span>
-   <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-      <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-   </svg>
+<button @click.prevent="openMenu()" class="bg-blue-600 text-right px-3 w-[125px] text-[1.2rem] rounded text-white absolute top-3 z-10">
+    <i class="fa-solid fa-arrow-right"></i>
 </button>
 
-<aside id="sidebar-multi-level-sidebar" class="fixed top-0 left-0 w-64 h-screen transition-transform -translate-x-full  shadow-xl">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-[#0284C7]  dark:bg-gray-800">        
-        <div class="mb-5">
-            <button @click="openMenuMobile()" type="button" class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-white rounded-lg sm:translate-x-0 hover:bg-[#0C4A6E]  focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-            <span class="sr-only">Close sidebar</span>
-            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-            </svg>
-            </button>
-        </div>
-        
-        <ul class="space-y-2 font-medium">      
-            <li>
-               <router-link :to="{ name: 'inicio' }"  class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0C4A6E] dark:hover:bg-gray-700 group">
-                    <i class="fa fa-house"></i>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Inicio</span>
-               </router-link>            
-            </li>  
+<nav class="flex flex-col bg-blue-600 h-full px-5 text-white items-left" :class="menuStyle">
+    
+    <!-- HEADER MENU -->
 
-            <!-- Menu Cadastro -->
-            <li>
-                <button type="button" @click="mostrarMenu('dropdown-example')" class="flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:bg-[#0C4A6E]  dark:text-white dark:hover:bg-gray-700" >
-                    <i class="fa-solid fa-chalkboard-user"></i>
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap">Cadastro</span>
-                    <i class="fa fa-turn-down"></i>
-                </button>
-                <ul id="dropdown-example" class="hidden py-2 space-y-2">
-                    <li>
-                        <router-link :to="{ name: 'usuarioFiltro' }"  class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0C4A6E]  dark:hover:bg-gray-700 group">                
-                            <span class="flex-1 ml-3 whitespace-nowrap">Usuário</span>
-                        </router-link>                         
-                    </li>                  
-                   
-                </ul>
-            </li> 
-            
-            <li>
-               <router-link to="/"  class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#0C4A6E]  dark:hover:bg-gray-700 group">
-                <i class="fa fa-right-from-bracket"></i>
-                <span class="flex-1 ml-3 whitespace-nowrap">Deslogar</span>
-               </router-link>            
-            </li>
-        </ul>
+    <div class="my-5">
+        <i class="fa-solid fa-image"></i>
+        <span v-show="showText" class="ml-3 font-bold">
+            Nome Site
+        </span>
+        <hr class="">
     </div>
-</aside>
+
+    <div class="flex flex-col gap-y-2 hoverlow">
+
+        <router-link :class="buttonClass" to="/" titleInside="Usuário" id="usuario">            
+            <i class="fa-solid fa-user"> </i>
+            <span v-show="showText" class="ml-3 font-bold">
+                Usuário
+            </span>
+        </router-link>
+
+        <router-link :class="buttonClass" to="/" titleInside="Funcionário" id="funcionario">            
+            <i class="fa-solid fa-id-badge"> </i>
+            <span v-show="showText" class="ml-3 font-bold">
+                Funcionário
+            </span>
+        </router-link>
+
+    </div>
+
+    <button @click="openMenu()" class="rounded text-white absolute bottom-2 left-40 text-[2rem] w-[100px]" v-show="showText">
+        <i class="fa-solid fa-arrow-left"></i>
+    </button>
+</nav>
 
 </template>
+
+<style scoped>
+    .minimizedMenu{
+        @apply absolute z-10;
+    }
+
+    .maximizedMenu{
+        @apply absolute z-10 w-[250px];
+    }
+
+    .menuOptions{
+        @apply hover:border-2
+    }
+
+    .minimizedMenu a[titleInside]:hover::after {
+        content: attr(titleInside);
+        color: white;
+        position: absolute;
+        left: 100px;       
+        background-color: #2563EB;
+        padding: 5px 10px;        
+        @apply rounded-sm
+    }
+
+</style>
+
 <script>
 export default {
+    data(){
+        return{
+            menuStyle: "minimizedMenu",
+            buttonClass: "py-2 px-4",
+            showText: false
+        }
+    },  
     methods:{
-        mostrarMenu(campo){
-           (document.querySelector(`#${campo}`).classList).contains('hidden') ?
-             document.querySelector(`#${campo}`).classList.remove('hidden') : 
-             document.querySelector(`#${campo}`).classList.add('hidden')
-        },
-        openMenuMobile(){
-            let desktop = (document.querySelector('#sidebar-multi-level-sidebar').classList).contains('sm:translate-x-0');
-            
-            if( desktop ){
-                document.querySelector('#sidebar-multi-level-sidebar').classList.remove('sm:translate-x-0')
-                document.querySelector('#sidebar-multi-level-sidebar').classList.add('translate-x-0') 
+       openMenu(){
+            if( this.menuStyle == "minimizedMenu"){
+                this.menuStyle = "maximizedMenu"
+                this.buttonClass = "py-2 px-4 w-[180px] gap-x-2 hover:bg-white hover:text-[#2563EB] rounded"
+                this.showText = true
             }else{
-                document.querySelector('#sidebar-multi-level-sidebar').classList.add('sm:translate-x-0')
-                document.querySelector('#sidebar-multi-level-sidebar').classList.remove('translate-x-0') 
-            }
-
-        },
-        goTo(path,name){
-            
-            if(path){
-                this.$route.path(path)
-            }else{
-                this.$route.path({ name: name })
+                this.menuStyle = "minimizedMenu"
+                this.buttonClass = "border-2 py-2 px-4"
+                this.showText = false
             }
         }
     }
 }
 </script>
-<style>
-    
-</style>

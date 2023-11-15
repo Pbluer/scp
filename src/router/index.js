@@ -19,19 +19,19 @@ const routes = [
     component: () => import('@/views/Home/homeIndex.vue')
   },
   {
-    path:'/cadastro',
-    name:'cadastro',
+    path:'/register',
+    name:'register',
     children: [
       {
-        path: '/usuario',
-        name: 'usuarioFiltro',
-        component: () => import('@/views/Cadastro/Usuario/cadastroUsuarioFiltro.vue')
+        path: '/corporate',
+        name: 'corporateRegister',
+        component: () => import('@/views/Register/Corporate/registerCorporate.vue')
       },               
-      {
+     /*  {
         path: '/usuario/:codigo?',
         name: 'cadastroUsuario',
         component: () => import('@/views/Cadastro/Usuario/cadastroUsuario.vue')
-      },               
+      },   */             
     ]
   }
 /*   {
