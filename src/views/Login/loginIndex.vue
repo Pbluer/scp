@@ -2,17 +2,17 @@
     <smartAlert :type="alert.type" :mensage="alert.mensage" v-show="alert.show"/>    
     <div class="flex justify-center items-center">
 
-        <form class="flex flex-col gap-y-5 py-4 justify-center my-[33vh] items-center w-[90vw] border border-gray-700 shadow rounded-lg dark:bg-gray-50
+        <form class="flex flex-col gap-y-5 py-4 justify-center my-[33vh] items-center w-[90vw] border-2 border-gray-500 shadow rounded-lg dark:bg-gray-50
             md:w-[350px] ">
         
             <div class="flex flex-col text-left">
-                <label for="login" class="mb-1 font-bold text-[1.5rem]" >Login</label>
-                <input ref="login" id="login" class="border-2 border-gray-800 rounded px-2 h-[2rem] outline-none" type="text" v-model.trim="login" >
+                <label for="login" class="mb-1 font-bold text-[1.2rem]"> Login </label>
+                <input ref="login" id="login" class="border-2 border-gray-500 rounded px-2 h-[2rem] outline-none" type="text" v-model.trim="login" >
             </div>
 
             <div class="flex flex-col text-left">
-                <label for="senha" class="mb-1 font-bold text-[1.5rem]" >Senha</label>
-                <input ref="password" id="senha" class="border-2 border-gray-800 rounded px-2 h-[2rem] outline-none"  type="password" v-model.trim="password" >
+                <label for="senha" class="mb-1 font-bold text-[1.2rem]"> Senha </label>
+                <input ref="password" id="senha" class="border-2 border-gray-500 rounded px-2 h-[2rem] outline-none"  type="password" v-model.trim="password" >
             </div>
             
             <button @click.prevent="logar()" class="rounded-md w-[8rem] text-white bg-blue-600 font-bold h-10"> LOGAR </button>

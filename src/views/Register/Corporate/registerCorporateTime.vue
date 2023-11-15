@@ -83,7 +83,6 @@ export default {
     methods:{
         async gravar(){
             if( await this.validarFormulario() ) return;
-            console.log('salvo')
             
             let formData = new FormData();
             
