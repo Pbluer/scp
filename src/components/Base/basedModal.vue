@@ -1,13 +1,13 @@
 <template>
-    <div class="absolute w-[450px] mt-[1rem] border-2 bg-white shadow-sm rounded-md p-5 pb-10 animate__animated animate__fadeInDown">
+    <div class="absolute mt-[1rem] border-2 w-[96vw] bg-white shadow-sm rounded-md p-5 pb-10 animate__animated animate__fadeInDown
+    sm:w-[500px]">
         
-        <div class="flex justify-between">
+        <div class="flex justify-between mb-2">
             <slot name="title"></slot>
 
             <button @click.prevent="$emit('close')" class="relative left-0 ml-auto mr-2">
                 <i class="fa-solid fa-x"></i>
             </button>
-            <hr>
         </div>
 
         <slot name="body"></slot>

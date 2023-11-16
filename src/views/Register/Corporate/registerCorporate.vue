@@ -50,12 +50,38 @@
                 
             </div>
 
-            <button type="submit" class="bg-blue-600 text-white w-[150px] h-[35px] font-bold my-5 rounded-md hover:shadow-md"> Proxima etapa </button>
+            <button type="submit" class="bg-blue-600 text-white w-[150px] h-[35px] font-bold my-5 rounded-md hover:shadow-md">
+                <i v-if="loading" class="fa-solid fa-spinner fa-spin"></i>
+                <span v-if="!loading"> Concluir </span>
+            </button>
 
         </form>
+
+        <basedModal v-if="loginWasCreated" @close="loginWasCreated = false">
+            <template v-slot:body>
+                <div class="flex flex-col items-center">
+                    
+                    <div class="flex items-center">
+                        <img src="@/assets/img/person/happy.png" class="w-[13rem]" alt="Uma pessoa pulando com um sorriso no rosto.">
+
+                        <div class="text-center">
+                            <h1 class="font-bold text-blue-600">PARABÉNS!!</h1>
+                            <p>cadastro efetuado com sucesso.</p>
+                            <br>          
+                            <router-link to="/" class="flex justify-center items-center bg-blue-600 text-white w-[150px] h-[35px] font-bold my-5 rounded-md hover:shadow-md">                               
+                                <span> Logar </span>
+                            </router-link>                  
+                        </div>
+                    </div>                   
+
+                </div>
+            </template>
+        </basedModal>
+        
     </div>
 </template>
 <script>
+import basedModal from "@/components/Base/basedModal.vue"
 import smartAlert from "@/components/Base/smartAlert.vue"
 import axios from "axios"
 
@@ -66,6 +92,9 @@ export default {
     },
     data() {
         return {
+            paswordWarning: false,
+            loginWasCreated: false,
+            selectFuncionario:[],
             form:{
                 category: 1,
                 identification: null,
@@ -74,8 +103,6 @@ export default {
                 password: null,
                 confirmPassword: null,
             },
-            paswordWarning: false,
-            selectFuncionario:[],
             alert:{
                 type:'',
                 mensage: '',
@@ -85,6 +112,7 @@ export default {
     },   
     components:{
         smartAlert,
+        basedModal
     },
     methods:{
         async gravar(){
@@ -97,22 +125,21 @@ export default {
             formData.append('descricao',this.form.descricao )
             formData.append('login',this.form.login )
             formData.append('password',this.form.password )
+
             try{
-                
+                this.loading = true
                 let result = await axios({
                     method: 'post',
                     url: 'http://localhost:3030/login/register',
                     headers: { "Content-Type":'application/json; charset=utf-8'},
                     data: formData
                 })
-                console.log(`entrei`)
-
+                
                 let { status, mensage } = result.data;
          
                 if( status == 200 ){
-                    this.alert.type = 'success'
-                    this.alert.mensage = mensage
-                    this.alert.show = true                    
+                    this.loginWasCreated = true   
+                    this.loading = false
                     return
                 }
 
@@ -125,6 +152,8 @@ export default {
                 
             }catch( err ){
                 console.log(err)
+            }finally{
+                this.loading = false
             }
         },
         async validarFormulario(){
