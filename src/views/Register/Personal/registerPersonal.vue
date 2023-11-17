@@ -6,32 +6,28 @@
             <div class="gap-2">
 
                 <section class="flex flex-col mt-5 text-left w-[20rem]">
-                    <label for="category" class="mb-1 font-bold text-[1.2rem] text-gray-600" > Categoria </label>
-                    <select id="category" v-model="form.category" class="border-2 border-gray-200 bg-gray-50 rounded focus:border-[#0C4A6E] px-2 h-[35px] outline-none">
-                        <option value="1"> Pessoa Júridica ( CNPJ )</option>                        
-                        <option value="2"> Pessoa Física ( CPF ) </option>                        
-                    </select>
-                </section> 
-
-                <section class="flex flex-col mt-5 text-left w-[20rem]">
-                    <label class="mb-1 font-bold text-[1.2rem] text-gray-600" > {{ form.category == 1 ? "CNPJ" : "CPF" }} </label>
-                    <input v-show="form.category == 2" ref="identification1" class="border-2 border-gray-200 bg-gray-50 rounded focus:border-[#0C4A6E] px-2 h-[35px] outline-none" type="text" v-model.trim="form.identification" v-mask="'000.000.000-00'" >
-                    <input v-show="form.category == 1 " ref="identification2" class="border-2 border-gray-200 bg-gray-50 rounded focus:border-[#0C4A6E] px-2 h-[35px] outline-none" type="text" v-model.trim="form.identification" v-mask="'00.000.00/0000-00'" >
+                    <label class="mb-1 font-bold text-[1.2rem] text-gray-600" > CPF </label>
+                    <input ref="identification" class="border-2 border-gray-50 bg-gray-50 rounded focus:border-[#0C4A6E] px-2 h-[35px] outline-none" type="text" v-model.trim="form.identification" v-mask="'000.000.000-00'" >                    
                 </section>                
                 
                 <section class="flex flex-col mt-5 text-left w-[20rem]">
-                    <label for="name" class="mb-1 font-bold text-[1.2rem] text-gray-600" > {{ form.categoria == 1 ? "Razão Social" : "Nome" }} </label>
-                    <input ref="name" id="name" class="border-2 border-gray-200 bg-gray-50 rounded focus:border-[#0C4A6E] px-2 h-[35px] outline-none" type="text" v-model.trim="form.name">
+                    <label for="name" class="mb-1 font-bold text-[1.2rem] text-gray-600" > Nome </label>
+                    <input ref="name" id="name" class="border-2 border-gray-50 bg-gray-50 rounded focus:border-[#0C4A6E] px-2 h-[35px] outline-none" type="text" v-model.trim="form.name">
+                </section>
+
+                <section class="flex flex-col mt-5 text-left w-[20rem]">
+                    <label for="lastName" class="mb-1 font-bold text-[1.2rem] text-gray-600" > Sobrenome </label>
+                    <input ref="lastName" id="lastName" class="border-2 border-gray-50 bg-gray-50 rounded focus:border-[#0C4A6E] px-2 h-[35px] outline-none" type="text" v-model.trim="form.lastName">
                 </section>
                 
                 <section class="flex flex-col mt-5 text-left w-[20rem]">
                     <label for="login" class="mb-1 font-bold text-[1.2rem] text-gray-600"> Login </label>
-                    <input ref="login" id="login" class="border-2 border-gray-200 bg-gray-50 rounded focus:border-[#0C4A6E] px-2 h-[35px] outline-none" type="text" v-model.trim="form.login">
+                    <input ref="login" id="login" class="border-2 border-gray-50 bg-gray-50 rounded focus:border-[#0C4A6E] px-2 h-[35px] outline-none" type="text" v-model.trim="form.login">
                 </section>
 
                 <section class="flex flex-col mt-5 text-left w-[20rem]">
                     <label for="password" class="mb-1 font-bold text-[1.2rem] text-gray-600" > Senha </label>
-                    <input ref="password" id="password" class="border-2 border-gray-200 bg-gray-50 rounded focus:border-[#0C4A6E] px-2 h-[35px] outline-none" type="password" v-model.trim="form.password"  @focusin="paswordWarning = true" @focusout="paswordWarning = false">
+                    <input ref="password" id="password" class="border-2 border-gray-50 bg-gray-50 rounded focus:border-[#0C4A6E] px-2 h-[35px] outline-none" type="password" v-model.trim="form.password"  @focusin="paswordWarning = true" @focusout="paswordWarning = false">
                 </section>
 
                 <div class="flex flex-col mt-2 absolute bg-white shadow-lg p-2 border border-gray-300 w-[250px] rounded" v-if="paswordWarning">
@@ -45,7 +41,7 @@
 
                 <section class="flex flex-col mt-5 text-left w-[20rem]">
                     <label for="confirmPassword" class="mb-1 font-bold text-[1.2rem] text-gray-600" >Confirmar Senha </label>
-                    <input ref="confirmPassword" id="confirmPassword" class="border-2 border-gray-200 bg-gray-50 rounded focus:border-[#0C4A6E] px-2 h-[35px] outline-none" type="password" v-model.trim="form.confirmPassword" >
+                    <input ref="confirmPassword" id="confirmPassword" class="border-2 border-gray-50 bg-gray-50 rounded focus:border-[#0C4A6E] px-2 h-[35px] outline-none" type="password" v-model.trim="form.confirmPassword" >
                 </section>
                 
             </div>
@@ -123,6 +119,7 @@ export default {
             formData.append('category',this.form.category )
             formData.append('identification',this.form.identification )
             formData.append('name',this.form.name )
+            formData.append('lastName',this.form.lastName )
             formData.append('login',this.form.login )
             formData.append('password',this.form.password )
 
@@ -158,7 +155,8 @@ export default {
         },
         async validarFormulario(){
             let identification = this.form.identification 
-            let name = this.form.name
+            let name = this.form.name 
+            let lastName = this.form.lastName 
             let login = this.form.login 
             let password = this.form.password 
             let confirmPassword = this.form.confirmPassword
@@ -171,19 +169,26 @@ export default {
                 return true
             }            
 
-            if( !login ){
-                this.alert.show = true
-                this.alert.type = 'warning'
-                this.alert.mensage = 'Informe o Login.'
-                this.$refs.login.focus()
-                return true
-            }
-
             if( !name ){
                 this.alert.show = true
                 this.alert.type = 'warning'
                 this.alert.mensage = 'Informe o Nome.'
                 this.$refs.name.focus()
+                return true
+            }
+
+            if( !lastName ){
+                this.alert.show = true
+                this.alert.type = 'warning'
+                this.alert.mensage = 'Informe o Sobrenome.'
+                this.$refs.lastName.focus()
+                return true
+            }
+            if( !login ){
+                this.alert.show = true
+                this.alert.type = 'warning'
+                this.alert.mensage = 'Informe o Login.'
+                this.$refs.login.focus()
                 return true
             }
 

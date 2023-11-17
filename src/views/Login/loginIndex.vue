@@ -28,7 +28,7 @@
                             <p class="text-[1.3rem]"> Corporativo </p>
                         </button>
 
-                        <button class="bg-blue-600 w-[150px] gap-y-2 py-5 rounded-md px-2 font-white text-white">
+                        <button @click.prevent="personalRegister()" class="bg-blue-600 w-[150px] gap-y-2 py-5 rounded-md px-2 font-white text-white">
                             <i class="fa-solid fa-user text-[2rem]"></i>
                             <p class="text-[1.3rem]"> Pessoal </p>
                         </button>
@@ -132,7 +132,10 @@ export default {
         },
         corpotareRegister(){
             this.$router.push({ name: "corporateRegister" })
-        }
+        },
+        personalRegister(){
+            this.$router.push({ name: "personalRegister" })
+        },
     }    
 }
 </script>
