@@ -73,7 +73,7 @@ export default {
 
             let formData = new FormData();            
             formData.append('login',this.login )
-            formData.append('senha',this.password )
+            formData.append('password',this.password )
 
             try{
 
