@@ -18,19 +18,26 @@
 
     <div class="flex flex-col gap-y-2 hoverlow">
 
-        <router-link :class="buttonClass" to="/" titleInside="Usuário" id="usuario">            
+        <button :class="buttonClass" to="/" titleInside="Usuário" id="usuario">            
             <i class="fa-solid fa-user"> </i>
             <span v-show="showText" class="ml-3 font-bold">
                 Usuário
             </span>
-        </router-link>
+        </button>
 
-        <router-link :class="buttonClass" to="/" titleInside="Funcionário" id="funcionario">            
+        <button :class="buttonClass" to="/" titleInside="Funcionário" id="funcionario">            
             <i class="fa-solid fa-id-badge"> </i>
             <span v-show="showText" class="ml-3 font-bold">
                 Funcionário
             </span>
-        </router-link>
+        </button>
+
+        <button :class="buttonClass" @click.prevent="loadingPage('registerHours')" titleInside="Horários" id="horario">            
+            <i class="fa-solid fa-clock"> </i>
+            <span v-show="showText" class="ml-3 font-bold">
+                Horários
+            </span>
+        </button>
 
     </div>
 
@@ -54,7 +61,7 @@
         @apply hover:border-2
     }
 
-    .minimizedMenu a[titleInside]:hover::after {
+    .minimizedMenu button[titleInside]:hover::after {
         content: attr(titleInside);
         color: white;
         position: absolute;
@@ -76,14 +83,17 @@ export default {
         }
     },  
     methods:{
-       openMenu(){
+        loadingPage( name ){
+            this.$router.push({ name: name })
+        },
+        openMenu(){
             if( this.menuStyle == "minimizedMenu"){
                 this.menuStyle = "maximizedMenu"
                 this.buttonClass = "py-2 px-4 w-[180px] gap-x-2 hover:bg-white hover:text-[#2563EB] rounded"
                 this.showText = true
             }else{
                 this.menuStyle = "minimizedMenu"
-                this.buttonClass = "border-2 py-2 px-4"
+                this.buttonClass = "py-2 px-4"
                 this.showText = false
             }
         }

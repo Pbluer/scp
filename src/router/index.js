@@ -25,13 +25,18 @@ const routes = [
       {
         path: '/corporate',
         name: 'corporateRegister',
-        component: () => import('@/views/Register/Corporate/registerCorporate.vue')
+        component: () => import('@/views/Register/Corporate/registerCorporate.vue'),       
       },                                  
       {
         path: '/personal',
         name: 'personalRegister',
         component: () => import('@/views/Register/Personal/registerPersonal.vue')
-      },                                  
+      },
+      {
+        path: "hours",
+        name: "registerHours",
+        component: () => import('@/views/Register/Corporate/registerHours.vue'),
+      }                                 
      /*  {
         path: '/usuario/:codigo?',
         name: 'cadastroUsuario',
