@@ -84,12 +84,14 @@ export default {
                     data: formData
                 })
 
-                let { status, mensage } = result.data;
+                let { status, mensage, jwt } = result.data;
          
                 if( status == 200 ){
                     this.alert.type = 'success'
                     this.alert.mensage = mensage
                     this.alert.show = true      
+                    
+                    localStorage.setItem("jwt", jwt )
                     setTimeout( () => this.$router.push({name: 'inicio'})  , 1500)                                 
                     return;
                 }
